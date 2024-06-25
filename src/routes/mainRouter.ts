@@ -3,6 +3,6 @@ import { materialsRouter } from "./materials";
 
 const mainRouter = express.Router();
 
-mainRouter.use("/material", materialsRouter);
+mainRouter.use("/materials", materialsRouter);
 
 export { mainRouter };
