@@ -72,8 +72,6 @@ materialsRouter.put(
     const { name, technology, colors, pricePerGram, applicationTypes } =
       req.body;
     let imageUrl = req.file?.path;
-    console.log("Yes ");
-    console.log(imageUrl);
     if (imageUrl) {
       const oldImageUrl = await Material.findOne({ productid: id }, "imageUrl");
       if (oldImageUrl) {
@@ -121,7 +119,6 @@ materialsRouter.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   console.log("Yes " + id);
   const imageUrl = await Material.findOne({ productid: id }, "imageUrl");
-  console.log(imageUrl);
   if (imageUrl) {
     const publicId = imageUrl.imageUrl.split("/").pop()?.split(".")[0];
     if (publicId) {
@@ -129,8 +126,6 @@ materialsRouter.delete("/:id", async (req: Request, res: Response) => {
     }
   }
   const result = await Material.findOneAndDelete({ productid: id });
-  console.log("Yes");
-  console.log(result);
   if (result) {
     res.status(404).json({ message: "Deleted Successfully" });
   } else {
