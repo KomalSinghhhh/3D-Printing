@@ -21,6 +21,19 @@ This is a Node.js backend for managing information about various 3D printing mat
 5. Run the server using `node dist/index.js`
 6. Test the endpoints using tools like postman.
 
+## Image Handling
+When a user uploads an image, it is handled in the following way:
+
+ - **Upload and Store Temporarily** : The image is first stored on   the server using Multer.
+ - **Upload to Cloudinary** : The temporarily stored image is then uploaded to Cloudinary, a cloud-based image management service.
+ - **Delete from Server** : After the image is successfully uploaded to Cloudinary, the temporary image file is deleted from the server.
+ - **Storing Image URL** : The URL of the uploaded image on Cloudinary is stored in the MongoDB database alongside the material data.
+
+In case of image deletion:
+
+ - **Fetch Image URL** : The image URL is fetched from the MongoDB database.
+ - **Delete from Cloudinary** : The image is deleted from Cloudinary using the fetched URL.
+
 ## API Endpoints
 
 ### GET/materials
@@ -73,20 +86,35 @@ This is a Node.js backend for managing information about various 3D printing mat
   - pricePerGram (number)
   - applicationTypes (string, comma-separated)
   - image (file, optional)
-- Request :
+  
+- Before Update :
+  <img width="1010" alt="Before Update request" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/68f8128f-d8e7-4d87-be2a-3b26c2f794c4">
+  
+- PUT Request without image upload :
+  <img width="1012" alt="Update request without image" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/a2cb547a-0588-49d2-b142-454a10a36248">
 - Response :
+  <img width="1012" alt="Update response without image" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/d1e4fa8a-aa48-4847-ad1f-ab016fdf3e9c">
+
+- PUT Request with image upload : 
+  <img width="1014" alt="Update with image request" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/46f883f4-a0f3-49e0-824e-3adf974f95b7">
+
+- Response :
+  <img width="1015" alt="Update with image response" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/f24c52cf-e3bf-4341-885c-9834a9a1e833">
 
 ### DELETE/materials/:id
 
 - Remove a material from the database by its ID.
 - Url : "/api/v1/materials/:id"
-- Method : POST
+- Method : DELETE
 - Request :
+  <img width="1010" alt="Delete Request" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/187e036d-2554-44e2-bbd9-ea5f3d38ac7a">
+
 - Response :
+  <img width="1010" alt="Delete Response" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/42cadd1e-02cb-4580-ab4a-0e9ae467d23d">
 
-
-
-
+- Getting Deleted material : 
+  <img width="1012" alt="Getting Deleted material" src="https://github.com/KomalSinghhhh/3D-Printing/assets/111066880/ead7ac8c-84d0-4467-83a7-fa1af48f69df">
+  
 ---
 
 ## Finally thanks for trying out this application and please feel free to give feedback on the issues you faced or any other feedback you have ❤️
